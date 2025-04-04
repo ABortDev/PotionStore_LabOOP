@@ -45,12 +45,12 @@ namespace PotionStoreSystem
             {
                 string potionName = PotionList.SelectedRows[0].Cells[0].Value.ToString();
 
-                // Видаляємо зілля з файлу
+              
                 List<string> lines = File.ReadAllLines(filePath).ToList();
                 lines.RemoveAll(line => line.StartsWith(potionName + ","));
                 File.WriteAllLines(filePath, lines);
 
-                // Видаляємо рядок із таблиці
+               
                 PotionList.Rows.RemoveAt(PotionList.SelectedRows[0].Index);
             }
             else

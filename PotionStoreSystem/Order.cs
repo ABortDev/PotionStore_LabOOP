@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PotionStoreSystem
 {
-    public sealed class Order : BaseEntity
+    public sealed class Order : BaseEntity, IDisplayable
     {
         public List<Potion> Potions { get; set; }
         public DateTime PickupDate { get; set; }
@@ -17,7 +14,7 @@ namespace PotionStoreSystem
             PickupDate = pickupDate;
         }
 
-        public override void DisplayInfo()
+        public void DisplayInfo()
         {
             Console.WriteLine($"Order ID: {Id}, Pickup Date: {PickupDate.ToShortDateString()}");
         }

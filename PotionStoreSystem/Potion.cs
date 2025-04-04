@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PotionStoreSystem
 {
-    public class Potion : BaseEntity
+    public class Potion : BaseEntity, IDisplayable
     {
         public string PotionName { get; set; }
         public decimal Price { get; set; }
@@ -18,7 +18,7 @@ namespace PotionStoreSystem
             Ingredients = ingredients;
         }
 
-        public override void DisplayInfo()
+        public void DisplayInfo()
         {
             Console.WriteLine($"Potion: {PotionName}, Effect: {Effect}, Price: {Price} gold");
         }
