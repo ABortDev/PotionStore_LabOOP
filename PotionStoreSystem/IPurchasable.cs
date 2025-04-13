@@ -1,7 +1,8 @@
 ﻿namespace PotionStoreSystem
 {
-    public interface IDisplayable
+    public interface IPurchasable
     {
+        decimal Price { get; }
         void DisplayInfo();
     }
 }

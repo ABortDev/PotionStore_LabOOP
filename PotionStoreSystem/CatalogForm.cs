@@ -22,15 +22,27 @@ namespace PotionStoreSystem
             if (!File.Exists(filePath)) return;
 
             string[] lines = File.ReadAllLines(filePath);
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split(',');
-                if (parts.Length == 3)
+
+            //  Лямбда-вираз: спочатку розпарсимо зілля, потім відсортуємо по ціні
+            var sortedPotions = lines
+                .Select(line => line.Split(','))
+                .Where(parts => parts.Length == 3)
+                .Select(parts => new
                 {
-                    PotionList.Rows.Add(parts[0].Trim(), parts[1].Trim(), parts[2].Trim());
-                }
+                    Name = parts[0].Trim(),
+                    Effect = parts[1].Trim(),
+                    Price = decimal.TryParse(parts[2].Trim(), out var price) ? price : 0
+                })
+                .OrderBy(p => p.Price) // лямбда-вираз
+                .ToList();
+
+            // Вивід у таблицю
+            foreach (var potion in sortedPotions)
+            {
+                PotionList.Rows.Add(potion.Name, potion.Effect, potion.Price);
             }
         }
+
 
         private void AddPotionButton_Click(object sender, EventArgs e)
         {
@@ -45,18 +57,32 @@ namespace PotionStoreSystem
             {
                 string potionName = PotionList.SelectedRows[0].Cells[0].Value.ToString();
 
-              
-                List<string> lines = File.ReadAllLines(filePath).ToList();
-                lines.RemoveAll(line => line.StartsWith(potionName + ","));
-                File.WriteAllLines(filePath, lines);
+                // Анонімний метод
+                Action confirmDelete = delegate ()
+                {
+                    List<string> lines = File.ReadAllLines(filePath).ToList();
+                    lines.RemoveAll(line => line.StartsWith(potionName + ","));
+                    File.WriteAllLines(filePath, lines);
+                    PotionList.Rows.RemoveAt(PotionList.SelectedRows[0].Index);
+                };
 
-               
-                PotionList.Rows.RemoveAt(PotionList.SelectedRows[0].Index);
+                // діалог підтвердження
+                DialogResult result = MessageBox.Show(
+                    $"Are you sure you want to delete '{potionName}'?",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    confirmDelete(); // Викликаємо анонімний метод
+                }
             }
             else
             {
                 MessageBox.Show("Please select a potion to delete.");
             }
         }
+
     }
 }

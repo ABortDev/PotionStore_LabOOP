@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -17,25 +16,25 @@ namespace PotionStoreSystem
         private void SavePotionButton_Click(object sender, EventArgs e)
         {
             string name = PotionNameTextBox.Text.Trim();
-            string effect = EffectTextBox.Text.Trim();
-            string price = PriceTextBox.Text.Trim();
+            string description = EffectTextBox.Text.Trim();
+            string priceText = PriceTextBox.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(effect) || string.IsNullOrWhiteSpace(price))
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(description) || string.IsNullOrWhiteSpace(priceText))
             {
                 MessageBox.Show("Please fill in all fields.");
                 return;
             }
 
-            if (!decimal.TryParse(price, out decimal priceValue))
+            if (!decimal.TryParse(priceText, out decimal priceValue))
             {
                 MessageBox.Show("Price must be a valid number.");
                 return;
             }
 
-            Potion newPotion = new Potion(name, effect, priceValue, new List<Ingredient>());
+            Potion newPotion = new Potion(name, description, priceValue);
             PotionStore.AddPotion(newPotion);
 
-            File.AppendAllText(filePath, $"{newPotion.PotionName},{newPotion.Effect},{newPotion.Price}" + Environment.NewLine);
+            File.AppendAllText(filePath, $"{newPotion.Name},{newPotion.Description},{newPotion.Price}" + Environment.NewLine);
 
             MessageBox.Show("Potion added successfully!");
             this.Close();

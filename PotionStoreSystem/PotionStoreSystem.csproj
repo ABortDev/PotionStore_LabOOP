@@ -75,17 +75,14 @@
     <Compile Include="CatalogForm.Designer.cs">
       <DependentUpon>CatalogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="IDisplayable.cs" />
-    <Compile Include="IInventoryItem.cs" />
     <Compile Include="Ingredient.cs" />
-    <Compile Include="IOrderable.cs" />
     <Compile Include="InventoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InventoryForm.Designer.cs">
       <DependentUpon>InventoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="IStorable.cs" />
+    <Compile Include="IPurchasable.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrdersForm.cs">

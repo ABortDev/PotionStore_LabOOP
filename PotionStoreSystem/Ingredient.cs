@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PotionStoreSystem
 {
-    public class Ingredient : BaseEntity, IDisplayable
+    public class Ingredient : BaseEntity
     {
         public string Name { get; set; }
         public int Quantity { get; set; }
@@ -19,9 +19,5 @@ namespace PotionStoreSystem
             PricePerUnit = pricePerUnit;
         }
 
-        public void DisplayInfo()
-        {
-            Console.WriteLine($"Ingredient: {Name}, Quantity: {Quantity}, Price per unit: {PricePerUnit} gold");
-        }
     }
 }

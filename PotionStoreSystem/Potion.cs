@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PotionStoreSystem
+﻿namespace PotionStoreSystem
 {
-    public class Potion : BaseEntity, IDisplayable
+    public class Potion : IPurchasable
     {
-        public string PotionName { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public decimal Price { get; set; }
-        public string Effect { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
 
-        public Potion(string potionName, string effect, decimal price, List<Ingredient> ingredients)
+        public Potion(string name, string description, decimal price)
         {
-            PotionName = potionName;
-            Effect = effect;
+            Name = name;
+            Description = description;
             Price = price;
-            Ingredients = ingredients;
         }
 
         public void DisplayInfo()
         {
-            Console.WriteLine($"Potion: {PotionName}, Effect: {Effect}, Price: {Price} gold");
+            System.Console.WriteLine($"Name: {Name}\nDescription: {Description}\nPrice: {Price:C}\n");
         }
     }
 }
